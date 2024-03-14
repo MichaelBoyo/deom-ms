@@ -1,0 +1,81 @@
+name: Deploy Api Gateway
+
+
+env:
+  REPO_URL: ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.us-west-2.amazonaws.com/microservice_service_registry
+  AWS_REGION: us-west-2
+  CLUSTER: microservice_cluster
+  SERVICE: ecs-service-service_registry
+on:
+  push:
+    paths:
+      - 'service-registry/**'
+
+jobs:
+  build-and-deploy:
+    runs-on: ${{matrix.os}}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Restore Maven Cache
+        uses: actions/cache@v2
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/*.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+
+      - name: Build Docker image
+        run: docker build -t enumverse:$GITHUB_SHA .
+        working-directory: ./service-registry
+
+      - name: Tag Docker image with "latest"
+        run: |
+         DOCKER_TAG=${{ env.REPO_URL }}:latest
+         docker tag enumverse:$GITHUB_SHA $DOCKER_TAG
+         docker tag enumverse:$GITHUB_SHA ${{ env.REPO_URL }}:$GITHUB_SHA
+     
+
+      - name: Push Docker image to ECR
+        run: |
+          docker push ${{ env.REPO_URL }}:latest
+          docker push ${{ env.REPO_URL }}:$GITHUB_SHA
+    
+
+
+      - name: Update ECS service
+        run: |
+          aws ecs update-service --cluster ${{ env.CLUSTER }}  --service  ${{ env.SERVICE }} --force-new-deployment
