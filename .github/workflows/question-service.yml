@@ -1,4 +1,4 @@
-name: Deploy Systest
+name: Deploy Question Service
 
 
 env:
@@ -60,17 +60,20 @@ jobs:
 
       - name: Build Docker image
         run: docker build -t enumverse:$GITHUB_SHA .
+        working-directory: ./question-service
 
       - name: Tag Docker image with "latest"
         run: |
          DOCKER_TAG=${{ env.REPO_URL }}:latest
          docker tag enumverse:$GITHUB_SHA $DOCKER_TAG
          docker tag enumverse:$GITHUB_SHA ${{ env.REPO_URL }}:$GITHUB_SHA
+     
 
       - name: Push Docker image to ECR
         run: |
           docker push ${{ env.REPO_URL }}:latest
           docker push ${{ env.REPO_URL }}:$GITHUB_SHA
+    
 
 
       - name: Update ECS service
