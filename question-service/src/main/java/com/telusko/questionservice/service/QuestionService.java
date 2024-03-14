@@ -19,6 +19,7 @@ public class QuestionService {
     QuestionDao questionDao;
 
     public ResponseEntity<List<Question>> getAllQuestions() {
+
         try {
             return new ResponseEntity<>(questionDao.findAll(), HttpStatus.OK);
         }catch (Exception e){

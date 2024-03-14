@@ -2,10 +2,10 @@ name: Deploy Systest
 
 
 env:
-  REPO_URL: ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.eu-west-1.amazonaws.com/enum-dev-ecr-repo
-  AWS_REGION: eu-west-1
-  CLUSTER: enum-dev-cluster
-  SERVICE: enum-dev-service
+  REPO_URL: ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.eu-west-2.amazonaws.com/microservice_question_service
+  AWS_REGION: eu-west-2
+  CLUSTER: microservice_cluster
+  SERVICE: ecs-service-question_service
 on:
   push:
     paths:
