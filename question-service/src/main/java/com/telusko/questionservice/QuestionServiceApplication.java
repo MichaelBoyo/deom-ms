@@ -12,14 +12,15 @@ import java.util.Map;
 @RestController
 public class QuestionServiceApplication {
 
-	public static void main(String[] args) {
+    public static void main(String[] args) {
 
-		SpringApplication.run(QuestionServiceApplication.class, args);
-	}
-		@GetMapping("/health")
-	public ResponseEntity<?> test(){
-		return ResponseEntity.ok(Map.of("200 ok", "QuestionServiceApplication is working"));
-	}
+        SpringApplication.run(QuestionServiceApplication.class, args);
+    }
+
+    @GetMapping("/health")
+    public ResponseEntity<?> test() {
+        return ResponseEntity.ok(Map.of("200 ok", "QuestionServiceApplication is working"));
+    }
 
 
 }
