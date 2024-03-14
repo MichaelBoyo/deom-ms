@@ -2,7 +2,7 @@ name: Deploy Question Service
 
 
 env:
-  REPO_URL: ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.eu-west-2.amazonaws.com/microservice_question_service
+  REPO_URL: ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.us-west-2.amazonaws.com/microservice_question_service
   AWS_REGION: eu-west-2
   CLUSTER: microservice_cluster
   SERVICE: ecs-service-question_service
