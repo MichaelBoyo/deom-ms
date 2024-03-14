@@ -4,4 +4,4 @@ RUN mvn -B clean package -DskipTests
 
 FROM openjdk:17
 COPY --from=build target/*.jar app.jar
-ENTRYPOINT ["java", "-jar", "-Dserver.port=${PORT}", "-Dspring.profiles.active=${PROFILE}","app.jar"]
+ENTRYPOINT ["java", "-jar", "-Dserver.port=80", "-Dspring.profiles.active=default","app.jar"]
