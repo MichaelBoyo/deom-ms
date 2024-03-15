@@ -19,6 +19,7 @@ public class ServiceRegistryApplication {
     }
 
     @GetMapping("/health")
+
     public ResponseEntity<?> test() {
         return ResponseEntity.ok(Map.of("200 ok", "QuestionServiceApplication is working"));
     }

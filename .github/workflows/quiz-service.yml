@@ -1,4 +1,4 @@
-name: Deploy Api Gateway
+name: Deploy Quiz Service
 
 
 env:
