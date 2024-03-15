@@ -38,9 +38,9 @@ public class QuestionService {
 
     }
 
-    public ResponseEntity<String> addQuestion(Question question) {
-        questionDao.save(question);
-        return new ResponseEntity<>("success",HttpStatus.CREATED);
+    public ResponseEntity<Question> addQuestion(Question question) {
+        question =   questionDao.save(question);
+        return new ResponseEntity<>(question,HttpStatus.CREATED);
     }
 
     public ResponseEntity<List<Integer>> getQuestionsForQuiz(String categoryName, Integer numQuestions) {

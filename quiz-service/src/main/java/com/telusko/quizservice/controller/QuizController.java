@@ -1,6 +1,7 @@
 package com.telusko.quizservice.controller;
 
 import com.telusko.quizservice.model.QuestionWrapper;
+import com.telusko.quizservice.model.Quiz;
 import com.telusko.quizservice.model.QuizDto;
 import com.telusko.quizservice.model.Response;
 import com.telusko.quizservice.service.QuizService;
@@ -21,7 +22,7 @@ public class QuizController {
 
     @PostMapping("create")
 
-    public ResponseEntity<String> createQuiz(@RequestBody QuizDto quizDto){
+    public ResponseEntity<Quiz> createQuiz(@RequestBody QuizDto quizDto){
         return quizService.createQuiz(quizDto.getCategoryName(), quizDto.getNumQuestions(), quizDto.getTitle());
     }
 

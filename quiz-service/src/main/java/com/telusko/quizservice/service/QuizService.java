@@ -25,7 +25,7 @@ public class QuizService {
     QuizInterface quizInterface;
 
 
-    public ResponseEntity<String> createQuiz(String category, int numQ, String title) {
+    public ResponseEntity<Quiz> createQuiz(String category, int numQ, String title) {
 
         List<Integer> questions = quizInterface.getQuestionsForQuiz(category, numQ).getBody();
         Quiz quiz = new Quiz();
@@ -34,7 +34,7 @@ public class QuizService {
         quizDao.save(quiz);
 
         
-        return new ResponseEntity<>("Success", HttpStatus.CREATED);
+        return new ResponseEntity<>(quiz, HttpStatus.CREATED);
 
     }
 
@@ -46,7 +46,7 @@ public class QuizService {
     }
 
     public ResponseEntity<Integer> calculateResult(Integer id, List<Response> responses) {
-        ResponseEntity<Integer> score = quizInterface.getScore(responses);
-        return score;
+   
+        return quizInterface.getScore(responses);
     }
 }
