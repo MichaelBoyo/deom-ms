@@ -15,6 +15,7 @@ public class ApiGatewayApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ApiGatewayApplication.class, args);
 	}
+	
 	@GetMapping("/health")
 	public ResponseEntity<?> test(){
 		return ResponseEntity.ok(Map.of("200 ok", "Api Gateway is working"));
