@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
-@FeignClient("http://microservice-lb-tf-617656823.us-west-2.elb.amazonaws.com")
+@FeignClient(name = "QuestionService", value="http://microservice-lb-tf-617656823.us-west-2.elb.amazonaws.com")
 public interface QuizInterface {
     @GetMapping("question/generate")
     public ResponseEntity<List<Integer>> getQuestionsForQuiz
