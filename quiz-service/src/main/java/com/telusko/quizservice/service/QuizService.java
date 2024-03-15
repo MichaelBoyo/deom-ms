@@ -41,8 +41,7 @@ public class QuizService {
     public ResponseEntity<List<QuestionWrapper>> getQuizQuestions(Integer id) {
           Quiz quiz = quizDao.findById(id).get();
           List<Integer> questionIds = quiz.getQuestionIds();
-          ResponseEntity<List<QuestionWrapper>> questions = quizInterface.getQuestionsFromId(questionIds);
-          return questions;
+          return  quizInterface.getQuestionsFromId(questionIds);
 
     }
 
