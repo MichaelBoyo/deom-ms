@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: quiz-service
+  labels:
+    app: quiz-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app : quiz-service
+  template:
+    metadata:
+      labels:
+        app: quiz-service
+    spec:
+      containers:
+      - name: quiz-service
+        image: quiz-service:latest
+        imagePullPolicy: Always
+        ports:
+          - containerPort: 9002
+
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+  name:  quiz-service-svc
+spec:
+  selector:
+    app:  quiz-service
+  ports:
+  - port:  80
+    targetPort:  9002
