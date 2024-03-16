@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: quiz-service
+  namespace: health-check
   labels:
     app: quiz-service
 spec:
@@ -27,6 +28,7 @@ kind: Service
 apiVersion: v1
 metadata:
   name:  quiz-service-svc
+  namespace: health-check
 spec:
   selector:
     app:  quiz-service

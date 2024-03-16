@@ -2,6 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: eureka-cm
+  namespace: health-check
 data:
   eureka_service_address: "http://eureka-0.eureka:8761/eureka"
 
@@ -11,6 +12,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: eureka
+  namespace: health-check
   labels:
     app: eureka
 spec:
@@ -27,6 +29,7 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: eureka
+  namespace: health-check
 spec:
   serviceName: "eureka"
   replicas: 1
@@ -58,6 +61,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: eureka-lb
+  namespace: health-check
   labels:
     app: eureka
 spec:
