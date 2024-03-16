@@ -22,6 +22,9 @@ spec:
         ports:
           - containerPort: 9002
 
+      imagePullSecrets:
+        - name: regcred
+
 ---
 
 kind: Service

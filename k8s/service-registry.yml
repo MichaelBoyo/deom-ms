@@ -53,6 +53,8 @@ spec:
                 configMapKeyRef:
                   name: eureka-cm
                   key: eureka_service_address
+      imagePullSecrets:
+        - name: regcred
 
 
 ---
