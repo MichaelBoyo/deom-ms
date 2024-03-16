@@ -2,7 +2,7 @@ name: Deploy service-registry
 
 
 env:
-  REPO_URL: ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.us-west-2.amazonaws.com/microservice_service-registry
+  REPO_URL: ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.us-west-2.amazonaws.com/microservice_service-regstry
   AWS_REGION: us-west-2
   CLUSTER: microservice_cluster
   SERVICE: ecs-service-quiz

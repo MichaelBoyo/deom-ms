@@ -23,5 +23,4 @@ public class ServiceRegistryApplication {
         return ResponseEntity.ok(Map.of("200 ok", "QuestionServiceApplication is working"));
     }
 
-
 }
