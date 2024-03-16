@@ -11,11 +11,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
-@FeignClient(value = "QuestionService", url="http://microservice-lb-tf-617656823.us-west-2.elb.amazonaws.com")
+@FeignClient("QUESTION-SERVICE")
+
 public interface QuizInterface {
     @GetMapping("question/generate")
     public ResponseEntity<List<Integer>> getQuestionsForQuiz
-            (@RequestParam String categoryName, @RequestParam Integer numQuestions );
+            (@RequestParam String categoryName, @RequestParam Integer numQuestions);
 
     @PostMapping("question/getQuestions")
     public ResponseEntity<List<QuestionWrapper>> getQuestionsFromId(@RequestBody List<Integer> questionIds);
