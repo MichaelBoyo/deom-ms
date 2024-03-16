@@ -18,7 +18,9 @@ public class ApiGatewayApplication {
 	
 	@GetMapping("/health")
 	public ResponseEntity<?> test(){
-		return ResponseEntity.ok(Map.of("200 ok", "Api Gateway is working"));
+		return ResponseEntity.ok(Map.of("200 ok", "Api Gateway is working well"));
 	}
+
+
 
 }

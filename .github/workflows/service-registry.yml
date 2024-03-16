@@ -1,15 +1,15 @@
-name: Deploy Question Service
+name: Deploy service-registry
 
 
 env:
-  REPO_URL: ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.us-west-2.amazonaws.com/microservice_question
+  REPO_URL: ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.us-west-2.amazonaws.com/microservice_service-registry
   AWS_REGION: us-west-2
   CLUSTER: microservice_cluster
-  SERVICE: ecs-service-question
+  SERVICE: ecs-service-quiz
 on:
   push:
     paths:
-      - 'question-service/**'
+      - 'service-registry/**'
 
 jobs:
   build-and-deploy:
@@ -60,7 +60,7 @@ jobs:
 
       - name: Build Docker image
         run: docker build -t enumverse:$GITHUB_SHA .
-        working-directory: ./question-service
+        working-directory: ./quiz-service
 
       - name: Tag Docker image with "latest"
         run: |
@@ -75,7 +75,7 @@ jobs:
           docker push ${{ env.REPO_URL }}:$GITHUB_SHA
 
 
-#
+
 #      - name: Update ECS service
 #        run: |
 #          aws ecs update-service --cluster ${{ env.CLUSTER }}  --service  ${{ env.SERVICE }} --force-new-deployment

@@ -15,8 +15,8 @@ spec:
         app: question-service
     spec:
       containers:
-        - name: question-servicep
-          image: question-service:latest
+        - name: question-service-app
+          image: 357586184453.dkr.ecr.us-west-2.amazonaws.com/microservice_question:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 9001

@@ -40,7 +40,7 @@ spec:
     spec:
       containers:
         - name: eureka
-          image: service-registry:latest
+          image: 357586184453.dkr.ecr.us-west-2.amazonaws.com/microservice_service-regstry:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 8761

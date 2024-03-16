@@ -18,8 +18,6 @@ public class QuizController {
     @Autowired
     QuizService quizService;
 
-
-
     @PostMapping("create")
 
     public ResponseEntity<Quiz> createQuiz(@RequestBody QuizDto quizDto){

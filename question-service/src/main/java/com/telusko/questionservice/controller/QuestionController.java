@@ -19,47 +19,42 @@ public class QuestionController {
 
     @Autowired
     QuestionService questionService;
-    
+
 
     @Autowired
     Environment environment;
 
     @GetMapping("allQuestions")
-    public ResponseEntity<List<Question>> getAllQuestions(){
+    public ResponseEntity<List<Question>> getAllQuestions() {
         return questionService.getAllQuestions();
     }
 
     @GetMapping("category/{category}")
-    public ResponseEntity<List<Question>> getQuestionsByCategory(@PathVariable String category){
+    public ResponseEntity<List<Question>> getQuestionsByCategory(@PathVariable String category) {
         return questionService.getQuestionsByCategory(category);
     }
 
     @PostMapping("add")
-    public ResponseEntity<Question> addQuestion(@RequestBody Question question){
-        return  questionService.addQuestion(question);
+    public ResponseEntity<Question> addQuestion(@RequestBody Question question) {
+        return questionService.addQuestion(question);
     }
 
     @GetMapping("generate")
     public ResponseEntity<List<Integer>> getQuestionsForQuiz
-            (@RequestParam String categoryName, @RequestParam Integer numQuestions ){
+            (@RequestParam String categoryName, @RequestParam Integer numQuestions) {
         return questionService.getQuestionsForQuiz(categoryName, numQuestions);
     }
 
     @PostMapping("getQuestions")
-    public ResponseEntity<List<QuestionWrapper>> getQuestionsFromId(@RequestBody List<Integer> questionIds){
+    public ResponseEntity<List<QuestionWrapper>> getQuestionsFromId(@RequestBody List<Integer> questionIds) {
         System.out.println(environment.getProperty("local.server.port"));
         return questionService.getQuestionsFromId(questionIds);
     }
 
     @PostMapping("getScore")
-    public ResponseEntity<Integer> getScore(@RequestBody List<Response> responses)
-    {
+    public ResponseEntity<Integer> getScore(@RequestBody List<Response> responses) {
         return questionService.getScore(responses);
     }
 
-
-    // generate
-    // getQuestions (questionid)
-    // getScore
 
 }

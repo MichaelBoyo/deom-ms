@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: quiz-service
-        image: quiz-service:latest
+        image: 357586184453.dkr.ecr.us-west-2.amazonaws.com/microservice_quiz:latest
         imagePullPolicy: Always
         ports:
           - containerPort: 9002
