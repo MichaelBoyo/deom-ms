@@ -1,35 +1,72 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: v1
+kind: ConfigMap
 metadata:
-  name: eureka-server
+  name: eureka-cm
   namespace: health-check
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: eureka-server
-  template:
-    metadata:
-      labels:
-        app: eureka-server
-    spec:
-      containers:
-        - name: eureka-server
-          image: 357586184453.dkr.ecr.us-west-2.amazonaws.com/microservice_service-regstry:latest
-          ports:
-            - containerPort: 8761 # Port on which Eureka server runs
-          # You may need to mount a ConfigMap or Secret for configuration if needed
+data:
+  eureka_service_address: "http://eureka-0.eureka:8761/eureka"
+
 ---
+
 apiVersion: v1
 kind: Service
 metadata:
-  name: eureka-server
+  name: eureka
+  labels:
+    app: eureka
+spec:
+  clusterIP: None
+  ports:
+    - port: 8761
+      name: eureka
+  selector:
+    app: eureka
+
+---
+
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: eureka
   namespace: health-check
 spec:
+  serviceName: "eureka"
+  replicas: 1
   selector:
-    app: eureka-server
+    matchLabels:
+      app: eureka
+  template:
+    metadata:
+      labels:
+        app: eureka
+    spec:
+      containers:
+        - name: eureka
+          image: 357586184453.dkr.ecr.us-west-2.amazonaws.com/microservice_service-regstry:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8761
+          env:
+            - name: EUREKA_SERVER_ADDRESS
+              valueFrom:
+                configMapKeyRef:
+                  name: eureka-cm
+                  key: eureka_service_address
+
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: eureka-lb
+  namespace: health-check
+  labels:
+    app: eureka
+spec:
+  selector:
+    app: eureka
+  type: NodePort
   ports:
-    - protocol: TCP
-      port: 8761 # Port to expose for accessing Eureka server
+    - port: 80
       targetPort: 8761
-  type: NodePort # Exposes the service outside the cluster, you can choose based on your requirement
