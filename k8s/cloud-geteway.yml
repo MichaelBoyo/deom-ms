@@ -33,6 +33,7 @@ metadata:
   name:  api-gateway
   namespace: health-check
 spec:
+  type: LoadBalancer
   selector:
     app:  api-gateway
   ports:
