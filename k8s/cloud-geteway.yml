@@ -20,7 +20,9 @@ spec:
         image: 357586184453.dkr.ecr.us-west-2.amazonaws.com/microservice_api-gateway:latest
         imagePullPolicy: Always
         ports:
-          - containerPort: 9191
+          - name: web
+            containerPort: 9191
+
 
       imagePullSecrets:
         - name: regcred
