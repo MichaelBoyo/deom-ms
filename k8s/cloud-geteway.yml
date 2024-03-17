@@ -9,32 +9,32 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: api-gateway
+      app : api-gateway
   template:
     metadata:
       labels:
         app: api-gateway
     spec:
       containers:
-        - name: api-gateway
-          image: 357586184453.dkr.ecr.us-west-2.amazonaws.com/microservice_api-gateway:latest
-          imagePullPolicy: Always
-          ports:
-            - containerPort: 9191
+      - name: api-gateway
+        image: 357586184453.dkr.ecr.us-west-2.amazonaws.com/microservice_api-gateway:latest
+        imagePullPolicy: Always
+        ports:
+          - containerPort: 9191
+
       imagePullSecrets:
         - name: regcred
 
 ---
-apiVersion: v1
+
 kind: Service
+apiVersion: v1
 metadata:
-  name: api-gateway
+  name:  api-gateway
   namespace: health-check
 spec:
-  type: LoadBalancer
-  ports:
-    - port: 80
-      targetPort: 9191
-      protocol: TCP
   selector:
-    app: api-gateway
+    app:  api-gateway
+  ports:
+  - port:  80
+    targetPort:  9191
